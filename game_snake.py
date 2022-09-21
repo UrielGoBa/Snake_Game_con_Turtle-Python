@@ -5,7 +5,7 @@ import random
 #Creacion del espacio del juego
 
 pantalla = turtle.Screen() # Creación de la pantalla
-pantalla.setup(750,750) #Tamaño de la pantalla
+pantalla.setup(700,700) #Tamaño de la pantalla
 pantalla.bgcolor('#aaa') #Color de fondo
 pantalla.title('Snake Game') #Titulo de la pantalla
 
@@ -19,6 +19,15 @@ serpiente.goto(0,0) #Que inicie en el centro de la pantalla
 serpiente.direction = 'stop' # 'stop' #Detiene la serpiente cuando se reinicia el juego
 serpiente.color('#449C4A') #Color de la serpiente
 retraso = 0.1
+
+#Creacion de la comida
+
+comida = turtle.Turtle()
+comida.shape('turtle')
+comida.color('black')
+comida.penup()
+comida.goto(0,100)
+comida.speed(0)
 
 #Movimiento de la serpiente
 
@@ -64,6 +73,12 @@ pantalla.onkeypress(derecha, "Right")
 
 while True:
     serpiente._update() # Actualización de la posición de la serpiente
+    
+    if serpiente.distance(comida) < 20:
+        x = random.randrange(-300, 300, 20)
+        y =  random.randrange(-300, 300, 20)
+        comida.goto(x, y)
+
     movimiento()# Movimiento de la serpiente
     time.sleep(retraso) #Retraso del movimiento
     #Repetición
