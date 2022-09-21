@@ -6,7 +6,7 @@ import random
 
 pantalla = turtle.Screen() # Creación de la pantalla
 pantalla.setup(750,750) #Tamaño de la pantalla
-pantalla.bgcolor('#fef') #Color de fondo
+pantalla.bgcolor('#fefefe') #Color de fondo
 pantalla.title('Snake Game') #Titulo de la pantalla
 
 #Creación del jugador
@@ -16,7 +16,33 @@ serpiente.speed(1) # Velocidad inicial
 serpiente.shape('circle') #Forma de la serpiente
 serpiente.penup() #Esto hace que la serpiente no dibuje una linea cuando avance
 serpiente.goto(0,0) #Que inicie en el centro de la pantalla
-serpiente.direccion = 'stop' #Detiene la serpiente cuando se reinicia el juego
-serpiente.color("#449C4A") #Color de la serpiente
+serpiente.direction = 'left' # 'stop' #Detiene la serpiente cuando se reinicia el juego
+serpiente.color('#449C4A') #Color de la serpiente
+retraso = 0.1
 
+#Movimiento de la serpiente
+
+#Funcion que se va a repetir hasta que termine el programa
+def movimiento():
+    if serpiente.direction == 'up': #Si la direccion de la serpiente es 'up'
+        y = serpiente.ycor() #'y' es igual a su posición actual
+        serpiente.sety(y + 20) #Posición actual más 20px
+    if serpiente.direction == 'down':
+        y = serpiente.ycor()
+        serpiente.sety(y - 20)
+    if serpiente.direction == 'right':
+        x = serpiente.xcor()
+        serpiente.setx(x + 20)
+    if serpiente.direction == 'left':
+        x = serpiente.xcor()
+        serpiente.setx(x - 20)
+
+#loop del juego
+
+while True:
+    serpiente._update() # Actualización de la posición de la serpiente
+    movimiento()# Movimiento de la serpiente
+    time.sleep(retraso) #Retraso del movimiento
+    #Repetición
+    
 turtle.done()
