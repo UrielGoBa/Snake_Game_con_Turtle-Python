@@ -47,6 +47,15 @@ def izquierda():
 def derecha():
     serpiente.direction = 'right'
 
+texto = turtle.Turtle()
+texto.speed(0)
+texto.color('red')
+texto.penup()
+texto.hideturtle()
+texto.goto(0, -320)
+texto.write('Marcador: 0\tMarcador más alto: 0', align='center', font=('Arial',24, 'normal'))
+
+
 #Funcion que se va a repetir hasta que termine el programa
 
 def movimiento():
@@ -71,6 +80,10 @@ pantalla.onkeypress(abajo, "Down")
 pantalla.onkeypress(izquierda, "Left")
 pantalla.onkeypress(derecha, "Right")
 
+#Creacion del marcador
+marcador = 0
+marcador_alto = 0
+
 #loop de movimiento del juego
 
 while True:
@@ -86,6 +99,10 @@ while True:
         serpiente.home()
         serpiente.direction = 'stop'
         cuerpo.clear()
+        marcador=0
+        texto.clear()
+        texto.write('Marcador: {}\tMarcador más alto: {}'.format(marcador,marcador_alto), align='center', font=('Arial',24, 'normal'))
+
 
     if serpiente.distance(comida) < 20: #Cuando la serpiente toca la tortuga, ésta, reaparece en otro lugar random
         x = random.randrange(-300, 300, 20)
@@ -99,6 +116,11 @@ while True:
         nuevo_cuerpo.speed(0)
         cuerpo.append(nuevo_cuerpo) #Se agrega la nueva parte del cuerpo en la lista 'cuerpo'
 
+        marcador += 10
+        if marcador > marcador_alto:
+            marcador_alto = marcador
+        texto.clear()
+        texto.write('Marcador: {}\tMarcador más alto: {}'.format(marcador,marcador_alto), align='center', font=('Arial',24, 'normal'))
     #Vamos a agregar el cuerpo a la serpiente
 
     total = len(cuerpo)
@@ -123,6 +145,9 @@ while True:
             serpiente.home()
             cuerpo.clear()
             serpiente.direction= 'stop'
+            marcador=0
+            texto.clear()
+            texto.write('Marcador: {}\tMarcador más alto: {}'.format(marcador,marcador_alto), align='center', font=('Arial',24, 'normal'))
 
     time.sleep(retraso) #Retraso del movimiento
     #Repetición
